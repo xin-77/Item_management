@@ -43,9 +43,14 @@ public class BookController {
     }
     @ApiOperation(value = "新增")
     @PostMapping
-    public Result<?> save(@RequestBody Book Book){
-        bookService.save(Book);
-        return Result.success();
+    public R save(@RequestBody Book book){
+        LambdaQueryWrapper<Book> wr = new LambdaQueryWrapper<>();
+        wr.eq(Book::getIsbn, book.getIsbn());
+        if (bookService.count(wr) > 0){
+            return R.error().message("该物品已存在，请勿重复添加！");
+        }
+        bookService.save(book);
+        return R.ok();
     }
     @PutMapping
     @ApiOperation(value = "更新")
@@ -90,17 +95,16 @@ public class BookController {
 //        }
 //        Page<Book> bookPage = (Page<Book>) BookMapper.selectPage(new Page<>(pageNum,pageSize), wrappers);
         List<Book> records = bookPage.getRecords();
+        log.info(records.toString());
         List<BookLabelVo> bookLabelVo = new ArrayList<>();
         for (Book record : records) {
             BookLabelVo vo = new BookLabelVo();
             List<Label> labels = labelService.getLabelsByBookId(Long.valueOf(record.getId()));
-            log.info(labels.toString());
             BeanUtils.copyProperties(record, vo);
             vo.setLabels(labels);
 
             bookLabelVo.add(vo);
         }
-      ;
         return R.ok().data("bookLabelVos", bookLabelVo).data("Size",  bookPage.getSize())
                 .data("total",bookPage.getTotal()).data("current",bookPage.getCurrent());
     }

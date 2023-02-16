@@ -8,6 +8,7 @@
 //import com.baomidou.mybatisplus.generator.config.rules.DateType;
 //import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 //import org.junit.Test;
+//import org.junit.jupiter.api.Test;
 //
 //public class CodeGenerator {
 //

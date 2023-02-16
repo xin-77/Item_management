@@ -26,10 +26,12 @@ public class Book implements Serializable {
     private Integer borrownum;
     private String publisher;
     private String img;
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private Date publishTime;
     @TableField(fill = FieldFill.INSERT)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date createTime;
-    private String status;
+    private Integer stock;
 
 
 }

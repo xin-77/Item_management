@@ -30,10 +30,14 @@ public class LabelController {
     private LabelService labelService;
 
     @ApiOperation(value = "分页查询")
-    @GetMapping("/page/{pageNum}/{pageSize}")
-    public Result<?> findPage(@PathVariable Integer pageNum, @PathVariable Integer pageSize){
+    @GetMapping("/page")
+    public Result<?> findPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize,@RequestParam(defaultValue = "") String search1){
         Page<Label> page = new Page<>(pageNum, pageSize);
-        labelService.page(page, null);
+        // 根据label名称查询
+        LambdaQueryWrapper<Label> wrapper = new LambdaQueryWrapper<>();
+        wrapper.like(Label::getTitle,search1);
+        labelService.page(page, wrapper);
+
         return Result.success(page);
     }
 
@@ -47,10 +51,10 @@ public class LabelController {
 
     @ApiOperation(value = "根据图书Id查询所属标签")
     @GetMapping("/getLabels/{bookId}")
-    public Result<?> getLabels(@ApiParam(value = "图书Id") @PathVariable Long bookId){
-        labelService.getLabelsByBookId(bookId);
+    public R getLabels(@ApiParam(value = "图书Id") @PathVariable Long bookId){
+        List<Label> labels = labelService.getLabelsByBookId(bookId);
 
-        return Result.success();
+        return R.ok().data("labels",labels);
 
     }
 
@@ -75,7 +79,12 @@ public class LabelController {
         return Result.success();
     }
 
-
+    @ApiOperation(value = "批量删除")
+    @PostMapping("/deleteBatch")
+    public  R deleteBatch(@RequestBody List<Integer> ids){
+        labelService.removeBatchByIds(ids);
+        return R.ok();
+    }
 
 
 

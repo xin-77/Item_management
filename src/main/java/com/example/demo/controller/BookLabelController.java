@@ -31,6 +31,13 @@ public class BookLabelController {
         BookLabel bookLabel = new BookLabel();
         bookLabel.setBookId(bookId);
         bookLabel.setLabelId(labelId);
+        LambdaQueryWrapper<BookLabel> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(BookLabel::getBookId, bookId);
+        wrapper.eq(BookLabel::getLabelId, labelId);
+        long count = bookLabelService.count(wrapper);
+        if(count > 0) {
+            return R.error().message("书本标签已存在");
+        }
         bookLabelService.save(bookLabel);
 
         return R.ok();

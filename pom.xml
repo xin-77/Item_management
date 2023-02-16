@@ -112,6 +112,18 @@
 			<version>2.10.1</version>
 		</dependency>
 
+		<!--zxing-->
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-extra</artifactId>
+			<version>5.8.12</version>
+		</dependency>
 
 	</dependencies>
 

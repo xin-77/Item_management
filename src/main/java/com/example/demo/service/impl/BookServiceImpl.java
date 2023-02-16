@@ -118,8 +118,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
         }
 
         wrappers.eq(!StringUtils.isEmpty(search1), Book::getIsbn, search1);
-        wrappers.eq(!StringUtils.isEmpty(search2), Book::getName, search2);
-        wrappers.eq(!StringUtils.isEmpty(search3), Book::getAuthor, search3);
+        wrappers.like(!StringUtils.isEmpty(search2), Book::getName, search2);
+        wrappers.like(!StringUtils.isEmpty(search3), Book::getAuthor, search3);
 
         return this.page(bookPage, wrappers);
     }

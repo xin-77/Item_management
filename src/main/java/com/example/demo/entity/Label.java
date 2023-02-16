@@ -24,9 +24,6 @@ import lombok.experimental.Accessors;
  * @since 2023-02-02
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@ApiModel(value="Label对象", description="")
 public class Label implements Serializable {
 
     private static final long serialVersionUID = 1L;
