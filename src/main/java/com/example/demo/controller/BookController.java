@@ -35,12 +35,27 @@ public class BookController {
 
     @ApiOperation(value = "上传图片")
     @PostMapping("/upload")
-    public Result<?> uploadOssFile(MultipartFile file) {
+    public R uploadOssFile(MultipartFile file) {
         //获取上传文件  MultipartFile
+        System.out.println(file);
         //返回上传到oss的路径
         String url = bookService.uploadFileAvatar(file);
-        return Result.success(url);
+        if (StringUtils.isEmpty(url)) {
+            return R.error().message("上传失败！");
+        }
+        return R.ok().data("url",url);
     }
+
+    @ApiOperation(value = "删除图片")
+    @DeleteMapping("/delete")
+    public R deleteOssFile(@RequestParam("fileUrl") String fileUrl) {
+        //获取上传文件  MultipartFile
+        //返回上传到oss的路径
+        bookService.deleteFile(fileUrl);
+        return R.ok();
+    }
+
+
     @ApiOperation(value = "新增")
     @PostMapping
     public R save(@RequestBody Book book){

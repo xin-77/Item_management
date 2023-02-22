@@ -19,4 +19,6 @@ public interface BookService extends IService<Book> {
     String uploadFileAvatar(MultipartFile file);
 
     Page<Book> findPage(Page<Book> bookPage, String search1, String search2,String search3,String search4);
+
+    void deleteFile(String objectName);
 }

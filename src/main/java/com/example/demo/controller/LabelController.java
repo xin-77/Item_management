@@ -86,6 +86,12 @@ public class LabelController {
         return R.ok();
     }
 
+    @PostMapping("/update")
+    public R update(@RequestBody  Label label){
+        labelService.updateById(label);
+        return R.ok();
+    }
+
 
 
 }
