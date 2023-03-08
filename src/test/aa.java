@@ -1,32 +1,41 @@
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.demo.entity.Book;
-import com.example.demo.entity.BookLabel;
-import com.example.demo.entity.Label;
-import com.example.demo.entity.vo.BookLabelVo;
-import com.example.demo.mapper.BookMapper;
-import com.example.demo.service.BookLabelService;
-import com.example.demo.service.BookService;
-import com.example.demo.service.LabelService;
-import com.example.demo.service.impl.BookServiceImpl;
+import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.Collections;
 
-/**
- * @author xin
- * @since 2023/2/3 11:51
- */
+
 public class aa {
 
-    static BookService bookService;
-    static LabelService labelService;
-    static BookLabelService bookLabelService;
-
-
     public static void main(String[] args) {
-        System.out.println(new Date());
+
+        String url = "jdbc:mysql://localhost:3306/vue";
+        String username = "root";
+        String password = "123456";
+
+        String author = "Xin";
+        String outputJavaDir = "D:\\code\\gitproject\\Vue-Springboot-Library\\SpringBoot" + "/src/main/java";
+        String outputXmlDir = "D:\\code\\gitproject\\Vue-Springboot-Library\\SpringBoot\\src\\main\\resources\\mapper";
+        String parentPackageName = "com.example";
+        String moduleName = "demo";
+        FastAutoGenerator.create(url, username, password)
+                .globalConfig(builder -> {
+                    builder.author(author) // 设置作者
+                            .enableSwagger() // 开启 swagger 模式
+                            .outputDir(outputJavaDir); // 指定输出目录
+                })
+                .packageConfig(builder -> {
+                    builder.parent(parentPackageName) // 设置父包名
+                            .moduleName(moduleName) // 设置父包模块名
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, outputXmlDir)); // 设置mapperXml生成路径
+                })
+                .strategyConfig(builder -> {
+                    builder.addInclude("bookshelf"); // 设置需要生成的表名
+                    builder.entityBuilder().enableLombok(); // 使用 Lombok
+                    builder.controllerBuilder().enableRestStyle(); // 使用 RestController
+                    builder.serviceBuilder().formatServiceFileName("%sService"); // Service 接口命名格式
+                })
+                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                .execute();
     }
 }

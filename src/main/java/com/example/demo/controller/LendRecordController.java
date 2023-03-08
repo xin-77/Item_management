@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -44,7 +45,7 @@ public class LendRecordController {
     @ApiOperation("根据lendId列表删除多个数据")
     @PostMapping("/deleteRecords")
     public Result<?> deleteRecords(@RequestBody List<Long> LendIds){
-        lendRecordService.removeBatchByIds(LendIds);
+        lendRecordService.removeByIds(LendIds);
         return Result.success();
     }
 
@@ -74,13 +75,13 @@ public class LendRecordController {
                       @RequestParam(defaultValue = "") String search2,
                       @RequestParam(defaultValue = "") String search3){
         LambdaQueryWrapper<LendRecord> wrappers = new LambdaQueryWrapper<>();
-        if(StringUtils.isNotEmpty(search1)){
+        if(StrUtil.isNotEmpty(search1)){
             wrappers.like(LendRecord::getIsbn,search1);
         }
-        if(StringUtils.isNotEmpty(search2)){
+        if(StrUtil.isNotEmpty(search2)){
             wrappers.like(LendRecord::getBookname,search2);
         }
-        if(StringUtils.isNotEmpty(search3)){
+        if(StrUtil.isNotEmpty(search3)){
             wrappers.like(LendRecord::getReaderId,search3);
         }
         Page<LendRecord> lendRecordPage = lendRecordService.page(new Page<>(pageNum,pageSize), wrappers);
@@ -127,7 +128,7 @@ public class LendRecordController {
     @ApiOperation(value = "批量删除")
     @PostMapping("/deleteBatch")
     public  R deleteBatch(@RequestBody List<Integer> ids){
-        lendRecordService.removeBatchByIds(ids);
+        lendRecordService.removeByIds(ids);
         return R.ok();
     }
 

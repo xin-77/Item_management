@@ -17,8 +17,8 @@ import java.util.Date;
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+
+    private Long id;
     private String isbn;
     private String name;
     private BigDecimal price;
@@ -31,6 +31,9 @@ public class Book implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date createTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private Date updateTime;
     private Integer stock;
 
 

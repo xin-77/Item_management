@@ -82,7 +82,7 @@ public class LabelController {
     @ApiOperation(value = "批量删除")
     @PostMapping("/deleteBatch")
     public  R deleteBatch(@RequestBody List<Integer> ids){
-        labelService.removeBatchByIds(ids);
+        labelService.removeByIds(ids);
         return R.ok();
     }
 

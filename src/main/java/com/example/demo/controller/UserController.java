@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
@@ -88,7 +89,7 @@ public class UserController {
                               @RequestParam(defaultValue = "10") Integer pageSize,
                               @RequestParam(defaultValue = "") String search){
         LambdaQueryWrapper<User> wrappers = new LambdaQueryWrapper<>();
-        if(StringUtils.isNotEmpty(search)){
+        if(StrUtil.isNotEmpty(search)){
             wrappers.like(User::getNickName,search);
         }
         wrappers.like(User::getRole,2);
@@ -103,16 +104,16 @@ public class UserController {
                                @RequestParam(defaultValue = "") String search3,
                                @RequestParam(defaultValue = "") String search4){
         LambdaQueryWrapper<User> wrappers = new LambdaQueryWrapper<>();
-        if(StringUtils.isNotEmpty(search1)){
+        if(StrUtil.isNotEmpty(search1)){
             wrappers.like(User::getId,search1);
         }
-        if(StringUtils.isNotEmpty(search2)){
+        if(StrUtil.isNotEmpty(search2)){
             wrappers.like(User::getNickName,search2);
         }
-        if(StringUtils.isNotEmpty(search3)){
+        if(StrUtil.isNotEmpty(search3)){
             wrappers.like(User::getPhone,search3);
         }
-        if(StringUtils.isNotEmpty(search4)){
+        if(StrUtil.isNotEmpty(search4)){
             wrappers.like(User::getAddress,search4);
         }
         wrappers.like(User::getRole,2);

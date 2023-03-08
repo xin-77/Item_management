@@ -29,7 +29,6 @@ public class Label implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "id")
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     private String title;

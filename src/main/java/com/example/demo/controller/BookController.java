@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -60,7 +61,10 @@ public class BookController {
     @PostMapping
     public R save(@RequestBody Book book){
         LambdaQueryWrapper<Book> wr = new LambdaQueryWrapper<>();
-        wr.eq(Book::getIsbn, book.getIsbn());
+        // 设置isbn图书编号
+        UUID uuid = UUID.randomUUID();
+        book.setIsbn(String.valueOf(uuid));
+        wr.eq(Book::getIsbn, uuid);
         if (bookService.count(wr) > 0){
             return R.error().message("该物品已存在，请勿重复添加！");
         }

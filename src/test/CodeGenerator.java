@@ -7,7 +7,6 @@
 //import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 //import com.baomidou.mybatisplus.generator.config.rules.DateType;
 //import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-//import org.junit.Test;
 //import org.junit.jupiter.api.Test;
 //
 //public class CodeGenerator {
@@ -38,7 +37,7 @@
 //
 //        // 3、数据源配置
 //        DataSourceConfig dsc = new DataSourceConfig();
-//        dsc.setUrl("jdbc:mysql://localhost:3306/springboot-vue?serverTimezone=GMT%2B8");
+//        dsc.setUrl("jdbc:mysql://localhost:3306/vue?serverTimezone=GMT%2B8");
 //        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
 //        dsc.setUsername("root");
 //        dsc.setPassword("123456");
@@ -60,7 +59,7 @@
 //        // 5、策略配置
 //        StrategyConfig strategy = new StrategyConfig();
 //
-//        strategy.setInclude("book", "label", "book_label");
+//        strategy.setInclude("bookshelf");
 //
 //        strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
 //        strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀

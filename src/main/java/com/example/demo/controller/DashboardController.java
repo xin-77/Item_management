@@ -29,11 +29,11 @@ public class DashboardController {
     public  Result<?> dashboardrecords(){
         int visitCount = LoginUser.getVisitCount();
         QueryWrapper<User> queryWrapper1=new QueryWrapper();
-        Long userCount = userMapper.selectCount(queryWrapper1);
+        Integer userCount = userMapper.selectCount(queryWrapper1);
         QueryWrapper<LendRecord> queryWrapper2=new QueryWrapper();
-        Long lendRecordCount = lendRecordMapper.selectCount(queryWrapper2);
+        Integer lendRecordCount = lendRecordMapper.selectCount(queryWrapper2);
         QueryWrapper<Book> queryWrapper3=new QueryWrapper();
-        Long bookCount = bookMapper.selectCount(queryWrapper3);
+        Integer bookCount = bookMapper.selectCount(queryWrapper3);
         Map<String, Object> map = new HashMap<>();//键值对形式
         map.put("visitCount", visitCount);//放置visitCount到map中
         map.put("userCount", userCount);

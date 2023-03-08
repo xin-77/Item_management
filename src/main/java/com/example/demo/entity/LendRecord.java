@@ -12,7 +12,7 @@ import java.util.Date;
 @TableName("lend_record")
 @Data
 public class LendRecord {
-    @TableId(type = IdType.AUTO)
+
     private Long id;
     private Integer readerId;
     private String isbn;

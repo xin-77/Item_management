@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -83,13 +84,13 @@ public class BookWithUserController {
                               @RequestParam(defaultValue = "") String search2,
                               @RequestParam(defaultValue = "") String search3){
         LambdaQueryWrapper<BookWithUser> wrappers = new LambdaQueryWrapper<>();
-        if(StringUtils.isNotEmpty(search1)){
+        if(StrUtil.isNotEmpty(search1)){
             wrappers.like(BookWithUser::getIsbn,search1);
         }
-        if(StringUtils.isNotEmpty(search2)){
+        if(StrUtil.isNotEmpty(search2)){
             wrappers.like(BookWithUser::getBookName,search2);
         }
-        if(StringUtils.isNotEmpty(search3)){
+        if(StrUtil.isNotEmpty(search3)){
             wrappers.like(BookWithUser::getId,search3);
         }
         Page<BookWithUser> BookPage = (Page<BookWithUser>) BookWithUserMapper.selectPage(new Page<>(pageNum,pageSize), wrappers);

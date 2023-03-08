@@ -7,14 +7,15 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.apache.ibatis.annotations.Update;
 
+import java.io.Serializable;
 import java.util.Map;
 
 @TableName("user")
 @Data
-public class User {
+public class User implements Serializable {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+
+    private Long id;
     private String username;
     private String nickName;
     private String password;
