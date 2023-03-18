@@ -3,17 +3,23 @@ package com.example.demo.service.impl;
 import com.aliyun.oss.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.demo.commom.R;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.BookLabel;
+import com.example.demo.entity.Bookshelf;
 import com.example.demo.entity.Label;
+import com.example.demo.entity.vo.BookLabelVo;
+import com.example.demo.entity.vo.BookShelfVo;
 import com.example.demo.mapper.BookMapper;
 import com.example.demo.service.BookLabelService;
 import com.example.demo.service.BookService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.demo.service.BookshelfService;
 import com.example.demo.service.LabelService;
 import com.example.demo.utils.ConstantPropertiesUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,21 +46,22 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
     private LabelService labelService;
     @Resource
     private BookLabelService bookLabelService;
+    @Resource
+    private BookshelfService bookshelfService;
 
 
 
     @Override
-    public Page<Book> findPage(Page<Book> bookPage, String search1, String search2, String search3, String search4) {
+    public R findPage(Page<Book> bookPage, String search1, String search2, String search3, String search4) {
 
         LambdaQueryWrapper<Book> wrappers = new LambdaQueryWrapper<>();
-
         // 判断标签条件是否为空 如果不为空查询标签表
         if (!StringUtils.isEmpty(search4)) {
             LambdaQueryWrapper<Label> labelWrapper = new LambdaQueryWrapper<>();
             labelWrapper.eq(Label::getTitle, search4);
             Label label = labelService.getOne(labelWrapper);
             if (label == null) {
-                return new Page<>();
+                return R.ok().message("标签不存在！");
             }
 
             // 查询联系表获取BookId
@@ -68,11 +75,40 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
             wrappers.in(!ids.isEmpty(), Book::getId, ids);
         }
 
+
+
+
         wrappers.eq(!StringUtils.isEmpty(search1), Book::getIsbn, search1);
         wrappers.like(!StringUtils.isEmpty(search2), Book::getName, search2);
         wrappers.like(!StringUtils.isEmpty(search3), Book::getAuthor, search3);
 
-        return this.page(bookPage, wrappers);
+
+
+        this.page(bookPage, wrappers);
+
+        List<Book> records = bookPage.getRecords();
+        log.info(records.toString());
+        List<BookLabelVo> bookLabelVo = new ArrayList<>();
+        for (Book record : records) {
+            BookLabelVo vo = new BookLabelVo();
+            // 判断书架Id是否为空 如果不为空查询书架表,添加书架信息
+            Long bookShelfId = record.getBookShelfId();
+            if (bookShelfId != null) {
+                BookShelfVo bookShelfVo = bookshelfService.getBookShelfById(bookShelfId);
+                List<BookShelfVo> bookshelves = new ArrayList<>();
+                bookshelves.add(bookShelfVo);
+                vo.setBookShelfVo(bookshelves);
+            }
+
+            List<Label> labels = labelService.getLabelsByBookId(Long.valueOf(record.getId()));
+            BeanUtils.copyProperties(record, vo);
+            vo.setLabels(labels);
+
+            bookLabelVo.add(vo);
+        }
+
+        return R.ok().data("bookLabelVos", bookLabelVo).data("Size",  bookPage.getSize())
+                .data("total",bookPage.getTotal()).data("current",bookPage.getCurrent());
     }
 
     @Override
@@ -113,6 +149,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
 
 
     }
+
 
     @Override
     public String uploadFileAvatar(MultipartFile file) {

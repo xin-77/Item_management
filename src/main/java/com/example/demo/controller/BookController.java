@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.commom.R;
@@ -61,15 +62,13 @@ public class BookController {
     @PostMapping
     public R save(@RequestBody Book book){
         LambdaQueryWrapper<Book> wr = new LambdaQueryWrapper<>();
-        // 设置isbn图书编号
-        UUID uuid = UUID.randomUUID();
-        book.setIsbn(String.valueOf(uuid));
-        wr.eq(Book::getIsbn, uuid);
+
+        wr.eq(Book::getIsbn, book.getIsbn());
         if (bookService.count(wr) > 0){
             return R.error().message("该物品已存在，请勿重复添加！");
         }
         bookService.save(book);
-        return R.ok();
+            return R.ok().data("id", String.valueOf(book.getId()));
     }
     @PutMapping
     @ApiOperation(value = "更新")
@@ -88,8 +87,9 @@ public class BookController {
     @ApiOperation(value = "根据Id删除")
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id){
-        BookMapper.deleteById(id);
-        return Result.success();
+        boolean b = bookService.removeById(id);
+
+        return b ? Result.success() : Result.error("20001","删除失败");
     }
     @ApiOperation(value = "分页多条件查询")
     @GetMapping("/findPage")
@@ -100,32 +100,7 @@ public class BookController {
                       @RequestParam(defaultValue = "") String search3,
                       @RequestParam(defaultValue = "") String search4){
 
-        Page<Book> bookPage =  bookService.findPage(new Page<>(pageNum,pageSize),  search1,  search2,  search3,  search4);
-
-
-//        if(StringUtils.isNotEmpty(search1)){
-//            wrappers.like(Book::getIsbn,search1);
-//        }
-//        if(StringUtils.isNotEmpty(search2)){
-//            wrappers.like(Book::getName,search2);
-//        }
-//        if(StringUtils.isNotEmpty(search3)){
-//            wrappers.like(Book::getAuthor,search3);
-//        }
-//        Page<Book> bookPage = (Page<Book>) BookMapper.selectPage(new Page<>(pageNum,pageSize), wrappers);
-        List<Book> records = bookPage.getRecords();
-        log.info(records.toString());
-        List<BookLabelVo> bookLabelVo = new ArrayList<>();
-        for (Book record : records) {
-            BookLabelVo vo = new BookLabelVo();
-            List<Label> labels = labelService.getLabelsByBookId(Long.valueOf(record.getId()));
-            BeanUtils.copyProperties(record, vo);
-            vo.setLabels(labels);
-
-            bookLabelVo.add(vo);
-        }
-        return R.ok().data("bookLabelVos", bookLabelVo).data("Size",  bookPage.getSize())
-                .data("total",bookPage.getTotal()).data("current",bookPage.getCurrent());
+        return bookService.findPage(new Page<>(pageNum,pageSize),  search1,  search2,  search3,  search4);
     }
 
 

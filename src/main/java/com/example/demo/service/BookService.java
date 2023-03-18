@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.demo.commom.R;
 import com.example.demo.entity.Book;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.demo.entity.vo.BookQuery;
@@ -18,7 +19,7 @@ public interface BookService extends IService<Book> {
 
     String uploadFileAvatar(MultipartFile file);
 
-    Page<Book> findPage(Page<Book> bookPage, String search1, String search2,String search3,String search4);
+    R findPage(Page<Book> bookPage, String search1, String search2, String search3, String search4);
 
     void deleteFile(String objectName);
 }

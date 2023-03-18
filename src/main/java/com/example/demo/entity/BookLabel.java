@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +21,7 @@ import lombok.experimental.Accessors;
  *
  * </p>
  *
- * @author xin
+ * @author xin.
  * @since 2023-02-02
  */
 @Data
@@ -31,9 +33,11 @@ public class BookLabel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableField("labelId")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long labelId;
 
     @TableField("bookId")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long bookId;
 
     @TableField(fill = FieldFill.INSERT)

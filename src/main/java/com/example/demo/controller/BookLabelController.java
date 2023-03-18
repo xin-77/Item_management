@@ -26,14 +26,12 @@ public class BookLabelController {
     private BookLabelService bookLabelService;
 
     @ApiOperation(value = "添加书本标签")
-    @PostMapping("/{bookId}/{labelId}")
-    public R addLabel(@PathVariable Long bookId, @PathVariable Long labelId){
-        BookLabel bookLabel = new BookLabel();
-        bookLabel.setBookId(bookId);
-        bookLabel.setLabelId(labelId);
+    @PostMapping("")
+    public R addLabel(@RequestBody BookLabel bookLabel){
+
         LambdaQueryWrapper<BookLabel> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(BookLabel::getBookId, bookId);
-        wrapper.eq(BookLabel::getLabelId, labelId);
+        wrapper.eq(BookLabel::getBookId, bookLabel.getBookId());
+        wrapper.eq(BookLabel::getLabelId, bookLabel.getLabelId());
         long count = bookLabelService.count(wrapper);
         if(count > 0) {
             return R.error().message("书本标签已存在");
@@ -44,11 +42,11 @@ public class BookLabelController {
     }
 
     @ApiOperation(value = "删除书本标签")
-    @PostMapping("/removeLabel/{bookId}/{labelId}")
-    public R removeLabel(@PathVariable Long bookId, @PathVariable Long labelId){
+    @PostMapping("removeLabel")
+    public R removeLabel(@RequestBody BookLabel bookLabel){
         LambdaQueryWrapper<BookLabel> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(BookLabel::getLabelId, labelId);
-        wrapper.eq(BookLabel::getBookId, bookId);
+        wrapper.eq(BookLabel::getLabelId, bookLabel.getLabelId());
+        wrapper.eq(BookLabel::getBookId, bookLabel.getBookId());
         bookLabelService.remove(wrapper);
 
         return R.ok();
