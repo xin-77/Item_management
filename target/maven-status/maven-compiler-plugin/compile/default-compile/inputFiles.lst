@@ -1,3 +1,5 @@
+D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\service\impl\BookWithShelfServiceImpl.java
+D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\controller\BookWithShelfController.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\mapper\LendRecordMapper.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\controller\BookWithUserController.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\service\UserService.java
@@ -30,9 +32,12 @@ D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\controller\UserControll
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\entity\Bookshelf.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\service\BookLabelService.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\controller\LabelController.java
+D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\entity\BookWithShelf.java
+D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\mapper\BookWithShelfMapper.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\DemoApplication.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\mapper\BookshelfMapper.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\entity\Book.java
+D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\service\BookWithShelfService.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\service\LendRecordService.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\mapper\BookLabelMapper.java
 D:\code\bkcode\SpringBoot\src\main\java\com\example\demo\service\BookshelfService.java

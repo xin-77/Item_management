@@ -25,9 +25,6 @@ public class Book implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
     private String isbn;
-    @ApiModelProperty("书架id")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long bookShelfId;
     private String name;
     private BigDecimal price;
     private String author;

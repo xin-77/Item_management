@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.annotations.Api;
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.commom.R;
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/book")
 @Slf4j
+@Api(tags = "书本接口")
 public class BookController {
     @Resource
     private BookMapper BookMapper;

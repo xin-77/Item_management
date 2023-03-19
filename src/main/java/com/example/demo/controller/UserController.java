@@ -11,6 +11,7 @@ import com.example.demo.commom.Result;
 import com.example.demo.entity.BookWithUser;
 import com.example.demo.entity.User;
 import com.example.demo.mapper.UserMapper;
+import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
+@Api(tags = "用户接口")
 public class UserController {
     @Resource
     UserMapper userMapper;

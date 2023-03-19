@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.demo.commom.R;
 import com.example.demo.entity.BookLabel;
 import com.example.demo.service.BookLabelService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/book-label")
+@Api(tags = "书本与标签联系接口")
 public class BookLabelController {
 
     @Resource

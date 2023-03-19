@@ -8,6 +8,7 @@ import com.example.demo.commom.Result;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.Label;
 import com.example.demo.service.LabelService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/label")
+@Api(tags = "标签接口")
 public class LabelController {
     @Resource
     private LabelService labelService;

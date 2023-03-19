@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.commom.R;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@Api(tags = "二维码接口")
 public class QrCodeController {
 
     // 获取验证码

@@ -9,13 +9,13 @@ public class aa {
 
     public static void main(String[] args) {
 
-        String url = "jdbc:mysql://localhost:3306/vue";
+        String url = "jdbc:mysql://47.115.220.46:3306/vue";
         String username = "root";
         String password = "123456";
 
         String author = "Xin";
-        String outputJavaDir = "D:\\code\\gitproject\\Vue-Springboot-Library\\SpringBoot" + "/src/main/java";
-        String outputXmlDir = "D:\\code\\gitproject\\Vue-Springboot-Library\\SpringBoot\\src\\main\\resources\\mapper";
+        String outputJavaDir = "D:\\code\\bkcode\\SpringBoot" + "/src/main/java";
+        String outputXmlDir = "D:\\code\\bkcode\\SpringBoot\\src\\main\\resources\\mapper";
         String parentPackageName = "com.example";
         String moduleName = "demo";
         FastAutoGenerator.create(url, username, password)
@@ -30,7 +30,7 @@ public class aa {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, outputXmlDir)); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("bookshelf"); // 设置需要生成的表名
+                    builder.addInclude("book_with_shelf"); // 设置需要生成的表名
                     builder.entityBuilder().enableLombok(); // 使用 Lombok
                     builder.controllerBuilder().enableRestStyle(); // 使用 RestController
                     builder.serviceBuilder().formatServiceFileName("%sService"); // Service 接口命名格式

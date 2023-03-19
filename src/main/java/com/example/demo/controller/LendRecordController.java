@@ -13,6 +13,7 @@ import com.example.demo.entity.vo.LendVo;
 import com.example.demo.service.BookService;
 import com.example.demo.service.LendRecordService;
 import com.example.demo.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/LendRecord")
+@Api(tags = "借阅接口")
 public class LendRecordController {
     @Resource
     private LendRecordService lendRecordService;

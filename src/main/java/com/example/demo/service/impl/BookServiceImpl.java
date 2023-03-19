@@ -4,18 +4,12 @@ import com.aliyun.oss.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.commom.R;
-import com.example.demo.entity.Book;
-import com.example.demo.entity.BookLabel;
-import com.example.demo.entity.Bookshelf;
-import com.example.demo.entity.Label;
+import com.example.demo.entity.*;
 import com.example.demo.entity.vo.BookLabelVo;
 import com.example.demo.entity.vo.BookShelfVo;
 import com.example.demo.mapper.BookMapper;
-import com.example.demo.service.BookLabelService;
-import com.example.demo.service.BookService;
+import com.example.demo.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.demo.service.BookshelfService;
-import com.example.demo.service.LabelService;
 import com.example.demo.utils.ConstantPropertiesUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
@@ -48,6 +42,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
     private BookLabelService bookLabelService;
     @Resource
     private BookshelfService bookshelfService;
+    @Resource
+    private BookWithShelfService bookWithShelfService;
 
 
 
@@ -92,9 +88,9 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
         for (Book record : records) {
             BookLabelVo vo = new BookLabelVo();
             // 判断书架Id是否为空 如果不为空查询书架表,添加书架信息
-            Long bookShelfId = record.getBookShelfId();
-            if (bookShelfId != null) {
-                BookShelfVo bookShelfVo = bookshelfService.getBookShelfById(bookShelfId);
+            BookWithShelf one = bookWithShelfService.getOne(new LambdaQueryWrapper<BookWithShelf>().eq(BookWithShelf::getBookId, record.getId()));
+            if (one != null) {
+                BookShelfVo bookShelfVo = bookshelfService.getBookShelfById(one.getShelfId());
                 List<BookShelfVo> bookshelves = new ArrayList<>();
                 bookshelves.add(bookShelfVo);
                 vo.setBookShelfVo(bookshelves);

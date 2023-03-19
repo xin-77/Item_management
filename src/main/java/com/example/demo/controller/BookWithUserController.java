@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.commom.Result;
 import com.example.demo.entity.BookWithUser;
 import com.example.demo.mapper.BookWithUserMapper;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/bookwithuser")
+@Api(tags = "书本与用户联系接口")
 public class BookWithUserController {
     @Resource
     BookWithUserMapper BookWithUserMapper;
