@@ -82,7 +82,7 @@ public class BookController {
     //    批量删除
     @ApiOperation(value = "批量删除")
     @PostMapping("/deleteBatch")
-    public  Result<?> deleteBatch(@RequestBody List<Integer> ids){
+    public  Result<?> deleteBatch(@RequestBody List<Long> ids){
         BookMapper.deleteBatchIds(ids);
         return Result.success();
     }

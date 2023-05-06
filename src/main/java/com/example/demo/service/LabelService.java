@@ -17,5 +17,5 @@ public interface LabelService extends IService<Label> {
 
     List<Label> getLabelsByBookId(Long bookId);
 
-    void deleteLabel(Integer id);
+    boolean deleteLabel(Long id);
 }

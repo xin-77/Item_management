@@ -65,9 +65,9 @@ public class LendRecordController {
         book.setStock(book.getStock()-1);
         book.setBorrownum(book.getBorrownum()+1);
         bookService.updateById(book);
-        lendRecordService.save(lendRecord);
 
-        return R.ok();
+
+        return lendRecordService.save(lendRecord) ? R.ok():R.error();
     }
     @ApiOperation("分页查询")
     @GetMapping
@@ -121,17 +121,17 @@ public class LendRecordController {
         if (lendRecordService.getById(lendRecord.getId()).getStatus() == 1){
             return R.error().message("请勿重复归还");
         }
-        lendRecordService.updateById(lendRecord);
 
 
-        return R.ok();
+
+        return  lendRecordService.updateById(lendRecord) ? R.ok() : R.error();
     }
 
     @ApiOperation(value = "批量删除")
     @PostMapping("/deleteBatch")
-    public  R deleteBatch(@RequestBody List<Integer> ids){
-        lendRecordService.removeByIds(ids);
-        return R.ok();
+    public  R deleteBatch(@RequestBody List<Long> ids){
+
+        return lendRecordService.removeByIds(ids) ? R.ok() : R.error();
     }
 
 

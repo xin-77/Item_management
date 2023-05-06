@@ -52,10 +52,12 @@ public class LabelServiceImpl extends ServiceImpl<LabelMapper, Label> implements
 
     @Override
     @Transactional
-    public void deleteLabel(Integer id) {
+    public boolean deleteLabel(Long id) {
         this.removeById(id);
         LambdaQueryWrapper<BookLabel> bookLabelWrapper = new LambdaQueryWrapper<>();
         bookLabelWrapper.eq(BookLabel::getLabelId, id);
-        bookLabelService.remove(bookLabelWrapper);
+
+
+        return bookLabelService.remove(bookLabelWrapper);
     }
 }

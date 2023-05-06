@@ -15,7 +15,10 @@ import java.util.Date;
 @Data
 public class LendRecord {
     @JsonSerialize(using = ToStringSerializer.class)
+    private Long bookId;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Integer readerId;
     private String isbn;
     private String bookname;
@@ -25,6 +28,6 @@ public class LendRecord {
     private Date returnTime;
     private Integer status;
     private Integer borrownum;
-    private Long bookId;
+
 
 }

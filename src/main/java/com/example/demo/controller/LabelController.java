@@ -75,16 +75,18 @@ public class LabelController {
 
     @ApiOperation(value = "删除标签")
     @DeleteMapping("/{id}")
-    public Result<?> delete(@PathVariable Integer id){
+    public R delete(@PathVariable Long id){
 
-        labelService.deleteLabel(id);
-        return Result.success();
+
+        return labelService.deleteLabel(id) ? R.ok() : R.error();
     }
 
     @ApiOperation(value = "批量删除")
     @PostMapping("/deleteBatch")
-    public  R deleteBatch(@RequestBody List<Integer> ids){
-        labelService.removeByIds(ids);
+    public  R deleteBatch(@RequestBody List<Long> ids){
+        for (Long id : ids) {
+            labelService.deleteLabel(id);
+        }
         return R.ok();
     }
 
